@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فرم همسر یابی - پیوند مودت</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tahoma', sans-serif; }
+        body { background: linear-gradient(135deg, #fef3e2 0%, #ffe8d4 100%); padding: 20px; min-height: 100vh; }
+        .container { max-width: 950px; margin: auto; background: white; border-radius: 40px; padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #b45f2b; margin-bottom: 8px; font-size: 28px; }
+        .sub { text-align: center; color: #8b694a; margin-bottom: 30px; font-size: 14px; border-bottom: 2px dashed #ffcd94; padding-bottom: 12px; }
+        .form-group { margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+        .form-group label { width: 185px; font-weight: bold; color: #5a3e2b; font-size: 14px; }
+        .form-group input, .form-group select, .form-group textarea { flex: 1; padding: 10px 14px; border: 1px solid #e2c7a3; border-radius: 28px; background: #fffcf7; font-size: 14px; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #e6a157; box-shadow: 0 0 0 3px #ffe0b5; }
+        .double-field { flex: 1; display: flex; gap: 12px; flex-wrap: wrap; }
+        .double-field input { flex: 1; }
+        button { background: #c17b42; color: white; border: none; padding: 12px 28px; border-radius: 40px; cursor: pointer; font-size: 15px; font-weight: bold; margin: 5px; transition: 0.2s; }
+        button:hover { background: #a55d2a; transform: translateY(-2px); }
+        .btn-group { display: flex; justify-content: center; gap: 18px; margin-top: 25px; flex-wrap: wrap; }
+        .status { padding: 14px; border-radius: 30px; margin: 20px 0; text-align: center; font-weight: bold; }
+        .success { background: #d9f0da; color: #2a6817; border-right: 5px solid #2a6817; }
+        .error { background: #ffe0dc; color: #b33; border-right: 5px solid #b33; }
+        .channel { text-align: center; margin-top: 30px; background: #ffefdb; padding: 15px; border-radius: 50px; }
+        .channel a { color: #b45f2b; font-weight: bold; text-decoration: none; }
+        .user-list, .admin-panel-content { background: #faf3ea; border-radius: 28px; padding: 20px; max-height: 500px; overflow-y: auto; margin-top: 25px; }
+        .user-card { border-bottom: 1px solid #e2c7a3; padding: 14px; margin-bottom: 12px; background: white; border-radius: 20px; }
+        .admin-card { border: 2px solid #c17b42; margin-bottom: 18px; padding: 18px; border-radius: 24px; background: #fffef7; }
+        .hidden { display: none; }
+        .section-title { font-size: 22px; color: #b45f2b; margin-bottom: 18px; border-right: 5px solid #b45f2b; padding-right: 15px; }
+        .admin-pass-area { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+        .admin-pass-area input { flex: 1; padding: 10px; border-radius: 30px; border: 1px solid #e2c7a3; }
+        .export-btn { background: #2c7a4d; }
+        .export-btn:hover { background: #1e5a38; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📝 پیوند مودت</h1>
+    <div class="sub">فرم جامع همسر یابی (اطلاعات در گوگل شیت ذخیره میشود)</div>
+
+    <form id="mainForm">
+        <div class="form-group"><label>جنسیت :</label><select id="gender" required><option value="">انتخاب</option><option>مرد</option><option>زن</option></select></div>
+        <div class="form-group"><label>نام و نام خانوادگی :</label><input type="text" id="fullname" placeholder="مثال: رضا کریمی" required></div>
+        <div class="form-group"><label>تاریخ تولد :</label><div class="double-field"><input type="number" id="birthYear" placeholder="سال"><input type="number" id="birthMonth" placeholder="ماه 1-12"><input type="number" id="birthDay" placeholder="روز 1-31"></div></div>
+        <div class="form-group"><label>قد (سانتی‌متر) :</label><input type="number" id="height" value="170"></div>
+        <div class="form-group"><label>وزن (کیلوگرم) :</label><input type="number" id="weight" value="65"></div>
+        <div class="form-group"><label>شغل پدر :</label><input type="text" id="fatherJob"></div>
+        <div class="form-group"><label>شغل مادر :</label><input type="text" id="motherJob"></div>
+        <div class="form-group"><label>رنگ پوست :</label><select id="skinColor"><option>سفید</option><option>سبزه</option><option>گندمی</option><option>تیره</option></select></div>
+        <div class="form-group"><label>رنگ چشم :</label><select id="eyeColor"><option>قهوه‌ای</option><option>مشکی</option><option>فندقی</option><option>سبز</option><option>آبی</option></select></div>
+        <div class="form-group"><label>نوع پوشش :</label><select id="dressCode"><option>مذهبی</option><option>مدرن</option><option>اسپرت</option></select></div>
+        <div class="form-group"><label>شغل :</label><select id="jobType"><option>کارمند دولتی</option><option>کارمند خصوصی</option><option>شغل آزاد</option></select></div>
+        <div class="form-group"><label>شرح شغل :</label><textarea id="jobDesc" rows="2"></textarea></div>
+        <div class="form-group"><label>وضعیت جسمی :</label><select id="physicalStatus"><option>سالم</option><option>معلول</option></select></div>
+        <div class="form-group"><label>اهل دخانیات :</label><select id="smoking"><option>خیر</option><option>بله سیگار</option><option>بله قلیان</option><option>بله هردو</option></select></div>
+        <div class="form-group"><label>تعداد افراد خانواده :</label><input type="number" id="familyCount" value="4"></div>
+        <div class="form-group"><label>فرزند چندم :</label><input type="number" id="childOrder" value="1"></div>
+        <div class="form-group"><label>استان :</label><input type="text" id="province"></div>
+        <div class="form-group"><label>شهرستان :</label><input type="text" id="city"></div>
+        <div class="form-group"><label>روستا/محله :</label><input type="text" id="neighborhood"></div>
+        <div class="form-group"><label>شماره تماس ۱ :</label><input type="tel" id="phone1" placeholder="09123456789" required></div>
+        <div class="form-group"><label>شماره تماس ۲ :</label><input type="tel" id="phone2" placeholder="09123456789"></div>
+        <div class="form-group"><label>خصوصیات اخلاقی :</label><textarea id="personality" rows="2" placeholder="صبور، آرام..."></textarea></div>
+        <div class="form-group"><label>معیار همسر آینده :</label><textarea id="spouseCriteria" rows="2" placeholder="متدین، خوش اخلاق..."></textarea></div>
+        <div class="form-group"><label>سابقه ازدواج :</label><select id="marriageHistory"><option>مجرد و بدون سابقه</option><option>مطلقه در دوران نامزدی</option><option>مطلقه بدون فرزند</option><option>مطلقه دارای فرزند</option><option>مطلقه همسر قبلی زنده</option><option>همسر فوت شده</option></select></div>
+        <div class="form-group"><label>استان‌های قابل قبول :</label><input type="text" id="acceptProvinces"></div>
+        <div class="form-group"><label>شغل همسر ایده‌آل :</label><select id="spouseJobAccept"><option>محدودیتی ندارم</option><option>فقط روحانی</option><option>فقط نظامی</option><option>فقط کارمند</option><option>فقط شغل آزاد</option></select></div>
+        <div class="form-group"><label>اختلاف سنی مطلوب :</label><select id="ageDiff"><option>همسن می‌پذیرم</option><option>۲ تا ۵ سال</option><option>۶ تا ۱۰ سال</option><option>بزرگتر می‌پذیرم</option></select></div>
+        <div class="form-group"><label>حداقل تحصیلات همسر :</label><select id="minEduSpouse"><option>دیپلم</option><option>فوق دیپلم</option><option>لیسانس</option><option>فوق لیسانس</option><option>دکترا</option></select></div>
+        <div class="form-group"><label>تحصیلات خودتان :</label><select id="selfEducation"><option>دیپلم</option><option>فوق دیپلم</option><option>لیسانس</option><option>فوق لیسانس</option><option>دکترا</option></select></div>
+        <div class="form-group"><label>درآمد ماهیانه (تومان) :</label><input type="text" id="income"></div>
+        <div class="form-group"><label>وضعیت دارایی :</label><input type="text" id="assets"></div>
+        <div class="form-group"><label>توضیحات تکمیلی :</label><textarea id="moreInfo" rows="2"></textarea></div>
+        <div class="form-group"><label>آیدی ایتا :</label><input type="text" id="eitaaId"></div>
+        <div class="form-group"><label>آیدی روبیکا :</label><input type="text" id="rubikaId"></div>
+        <div class="form-group"><label>آیدی بله :</label><input type="text" id="baleId"></div>
+        <div class="form-group"><label>آیدی سروش :</label><input type="text" id="soroushId"></div>
+        <div class="form-group"><label>نحوه ارتباط :</label><select id="contactMethod"><option>ایتا</option><option>روبیکا</option><option>بله</option><option>سروش</option><option>تلفن</option></select></div>
+        
+        <div class="btn-group">
+            <button type="button" id="submitBtn">✅ ثبت اطلاعات</button>
+            <button type="button" id="viewUsersBtn">👥 مشاهده کاربران</button>
+            <button type="button" id="adminBtn">🔐 ورود ادمین</button>
+            <button type="button" id="exportBtn" class="export-btn">📥 خروجی JSON</button>
+        </div>
+    </form>
+
+    <div id="messageArea"></div>
+    <div id="publicUsersSection" class="hidden"><div class="section-title">👥 کاربران (کد مستعار)</div><div id="publicUsersList" class="user-list"></div></div>
+    <div id="adminSection" class="hidden"><div class="section-title">🔐 پنل مدیریت</div><div class="admin-pass-area"><input type="password" id="adminPasswordInput" placeholder="رمز ادمین"><button id="verifyAdminBtn">ورود</button></div><div id="adminDataArea" class="admin-panel-content hidden"></div></div>
+
+    <div class="channel">📢 کانال ایتا: <a href="https://eitaa.com/mardomnahadddd" target="_blank">https://eitaa.com/mardomnahadddd</a></div>
+</div>
+
+<script>
+    // ================== لینک Google Sheets شما ==================
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzauolH250J1fP9zElE6VCYk5qyGifWPIEqZbnc7fQPuFjbgF-jymm8GUNE69yBVl6w/exec";
+    const ADMIN_PASSWORD = "admin123";
+    
+    let usersDatabase = [];
+    
+    async function loadFromSheet() {
+        try {
+            const res = await fetch(SCRIPT_URL);
+            const data = await res.json();
+            usersDatabase = Array.isArray(data) ? data : [];
+            saveToLocal();
+            return usersDatabase;
+        } catch(e) {
+            console.log("خطا در دریافت از شیت:", e);
+            return [];
+        }
+    }
+    
+    async function submitToSheet(data) {
+        try {
+            const response = await fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            return true;
+        } catch(e) {
+            console.error(e);
+            return false;
+        }
+    }
+    
+    function saveToLocal() { localStorage.setItem("moddat_users_v3", JSON.stringify(usersDatabase)); }
+    function loadFromLocal() { const stored = localStorage.getItem("moddat_users_v3"); if(stored) usersDatabase = JSON.parse(stored); }
+    
+    function showMessage(msg, isError = false) {
+        const msgDiv = document.getElementById('messageArea');
+        msgDiv.innerHTML = `<div class="status ${isError ? 'error' : 'success'}">${msg}</div>`;
+        setTimeout(() => msgDiv.innerHTML = '', 4500);
+    }
+    
+    function generateAlias(idx) { return `مودت_${idx+1}_${Math.floor(10000+Math.random()*90000)}`; }
+    
+    // ========== بخش عمومی: فقط اطلاعات غیرمحرم نمایش داده شود ==========
+    function renderPublicList() {
+        const container = document.getElementById('publicUsersList');
+        if(usersDatabase.length === 0) { 
+            container.innerHTML = '<div style="text-align:center; padding:30px;">📭 هنوز کاربری ثبت نام نکرده</div>'; 
+            return; 
+        }
+        let html = '';
+        usersDatabase.forEach((user, idx) => {
+            const alias = user.alias || generateAlias(idx);
+            user.alias = alias;
+            // فقط این فیلدها نمایش داده میشه (هیچ اسم، شماره، آیدی پیام‌رسان نیست)
+            html += `
+                <div class="user-card">
+                    <strong>🆔 ${alias}</strong><br>
+                    جنسیت: ${user.gender || '-'}<br>
+                    تاریخ تولد: ${user.birthYear || '-'}/${user.birthMonth || '-'}/${user.birthDay || '-'}<br>
+                    قد: ${user.height || '-'} سانتی‌متر | وزن: ${user.weight || '-'} کیلوگرم<br>
+                    شغل پدر: ${user.fatherJob || '-'} | شغل مادر: ${user.motherJob || '-'}<br>
+                    رنگ پوست: ${user.skinColor || '-'} | رنگ چشم: ${user.eyeColor || '-'}<br>
+                    نوع پوشش: ${user.dressCode || '-'}<br>
+                    شغل: ${user.jobType || '-'}<br>
+                    شرح شغل: ${(user.jobDesc || '-').substring(0,100)}<br>
+                    وضعیت جسمی: ${user.physicalStatus || '-'}<br>
+                    دخانیات: ${user.smoking || '-'}<br>
+                    تعداد خانواده: ${user.familyCount || '-'} نفر | فرزند چندم: ${user.childOrder || '-'}<br>
+                    استان: ${user.province || '-'} | شهرستان: ${user.city || '-'} | محله: ${user.neighborhood || '-'}<br>
+                    خصوصیات اخلاقی: ${(user.personality || '-').substring(0,100)}<br>
+                    معیار همسر آینده: ${(user.spouseCriteria || '-').substring(0,150)}<br>
+                    سابقه ازدواج: ${user.marriageHistory || '-'}<br>
+                    استان‌های قابل قبول: ${user.acceptProvinces || '-'}<br>
+                    شغل ایده‌آل همسر: ${user.spouseJobAccept || '-'}<br>
+                    اختلاف سنی مطلوب: ${user.ageDiff || '-'}<br>
+                    حداقل تحصیلات همسر: ${user.minEduSpouse || '-'}<br>
+                    تحصیلات خود: ${user.selfEducation || '-'}<br>
+                    درآمد ماهیانه: ${user.income || '-'} تومان<br>
+                    وضعیت دارایی: ${user.assets || '-'}<br>
+                    توضیحات تکمیلی: ${(user.moreInfo || '-').substring(0,100)}<br>
+                    نحوه ارتباط: ${user.contactMethod || '-'}
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+        saveToLocal();
+    }
+    
+    // ========== بخش ادمین: همه اطلاعات (اسم، شماره، آیدی‌ها) نمایش داده شود ==========
+    function renderAdminFullData() {
+        const container = document.getElementById('adminDataArea');
+        if(usersDatabase.length === 0) { container.innerHTML = '<div style="padding:20px;">هیچ کاربری ثبت نشده</div>'; return; }
+        let html = '';
+        usersDatabase.forEach((user, idx) => {
+            html += `
+                <div class="admin-card">
+                    <strong>👤 ${user.fullname || 'نامشخص'}</strong><br>
+                    📞 شماره تماس ۱: ${user.phone1 || '-'} | شماره تماس ۲: ${user.phone2 || '-'}<br>
+                    🚻 جنسیت: ${user.gender || '-'} | 📅 تولد: ${user.birthYear}/${user.birthMonth}/${user.birthDay}<br>
+                    قد/وزن: ${user.height}/${user.weight}<br>
+                    شغل پدر/مادر: ${user.fatherJob} / ${user.motherJob}<br>
+                    رنگ پوست/چشم: ${user.skinColor} / ${user.eyeColor}<br>
+                    پوشش: ${user.dressCode} | شغل: ${user.jobType}<br>
+                    شرح شغل: ${user.jobDesc}<br>
+                    وضعیت جسمی: ${user.physicalStatus} | دخانیات: ${user.smoking}<br>
+                    تعداد خانواده: ${user.familyCount} | فرزند چندم: ${user.childOrder}<br>
+                    استان: ${user.province} | شهرستان: ${user.city} | محله: ${user.neighborhood}<br>
+                    خصوصیات اخلاقی: ${user.personality}<br>
+                    معیار همسر: ${user.spouseCriteria}<br>
+                    سابقه ازدواج: ${user.marriageHistory}<br>
+                    استان‌های قابل قبول: ${user.acceptProvinces}<br>
+                    شغل ایده‌آل همسر: ${user.spouseJobAccept}<br>
+                    اختلاف سنی: ${user.ageDiff}<br>
+                    تحصیلات همسر: ${user.minEduSpouse}<br>
+                    تحصیلات خود: ${user.selfEducation}<br>
+                    درآمد: ${user.income}<br>
+                    دارایی: ${user.assets}<br>
+                    توضیحات: ${user.moreInfo}<br>
+                    📱 آیدی ایتا: ${user.eitaaId || '-'}<br>
+                    📱 آیدی روبیکا: ${user.rubikaId || '-'}<br>
+                    📱 آیدی بله: ${user.baleId || '-'}<br>
+                    📱 آیدی سروش: ${user.soroushId || '-'}<br>
+                    نحوه ارتباط: ${user.contactMethod}<br>
+                    <small>🕐 زمان ثبت: ${user.timestamp || ''}</small>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+        container.classList.remove('hidden');
+    }
+    
+    document.getElementById('submitBtn').onclick = async () => {
+        const phone1 = document.getElementById('phone1').value.trim();
+        const phone2 = document.getElementById('phone2').value.trim();
+        const phoneRegex = /^09[0-9]{9}$/;
+        if(!phoneRegex.test(phone1)) { showMessage("شماره تماس ۱ باید ۱۱ رقم و با ۰۹ شروع شود", true); return; }
+        if(phone2 && !phoneRegex.test(phone2)) { showMessage("شماره تماس ۲ نامعتبر", true); return; }
+        const fullname = document.getElementById('fullname').value.trim();
+        if(!fullname) { showMessage("نام و نام خانوادگی را وارد کنید", true); return; }
+        
+        const newUser = {
+            gender: document.getElementById('gender').value,
+            fullname, birthYear: document.getElementById('birthYear').value, birthMonth: document.getElementById('birthMonth').value, birthDay: document.getElementById('birthDay').value,
+            height: document.getElementById('height').value, weight: document.getElementById('weight').value,
+            fatherJob: document.getElementById('fatherJob').value, motherJob: document.getElementById('motherJob').value,
+            skinColor: document.getElementById('skinColor').value, eyeColor: document.getElementById('eyeColor').value,
+            dressCode: document.getElementById('dressCode').value, jobType: document.getElementById('jobType').value,
+            jobDesc: document.getElementById('jobDesc').value, physicalStatus: document.getElementById('physicalStatus').value,
+            smoking: document.getElementById('smoking').value, familyCount: document.getElementById('familyCount').value,
+            childOrder: document.getElementById('childOrder').value, province: document.getElementById('province').value,
+            city: document.getElementById('city').value, neighborhood: document.getElementById('neighborhood').value,
+            phone1, phone2, personality: document.getElementById('personality').value,
+            spouseCriteria: document.getElementById('spouseCriteria').value, marriageHistory: document.getElementById('marriageHistory').value,
+            acceptProvinces: document.getElementById('acceptProvinces').value, spouseJobAccept: document.getElementById('spouseJobAccept').value,
+            ageDiff: document.getElementById('ageDiff').value, minEduSpouse: document.getElementById('minEduSpouse').value,
+            selfEducation: document.getElementById('selfEducation').value, income: document.getElementById('income').value,
+            assets: document.getElementById('assets').value, moreInfo: document.getElementById('moreInfo').value,
+            eitaaId: document.getElementById('eitaaId').value, rubikaId: document.getElementById('rubikaId').value,
+            baleId: document.getElementById('baleId').value, soroushId: document.getElementById('soroushId').value,
+            contactMethod: document.getElementById('contactMethod').value, timestamp: new Date().toLocaleString('fa-IR')
+        };
+        
+        await submitToSheet(newUser);
+        usersDatabase.unshift(newUser);
+        saveToLocal();
+        showMessage("✅ اطلاعات در گوگل شیت ثبت شد");
+        document.getElementById('fullname').value = ''; document.getElementById('phone1').value = ''; document.getElementById('phone2').value = '';
+    };
+    
+    document.getElementById('viewUsersBtn').onclick = async () => { await loadFromSheet(); renderPublicList(); document.getElementById('publicUsersSection').classList.remove('hidden'); document.getElementById('adminSection').classList.add('hidden'); };
+    document.getElementById('adminBtn').onclick = () => { document.getElementById('adminSection').classList.toggle('hidden'); document.getElementById('publicUsersSection').classList.add('hidden'); document.getElementById('adminDataArea').classList.add('hidden'); };
+    document.getElementById('verifyAdminBtn').onclick = async () => { if(document.getElementById('adminPasswordInput').value !== ADMIN_PASSWORD) { showMessage("رمز اشتباه", true); return; } await loadFromSheet(); renderAdminFullData(); };
+    document.getElementById('exportBtn').onclick = () => { if(usersDatabase.length===0){ showMessage("داده‌ای نیست",true); return; } const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify(usersDatabase,null,2)],{type:"application/json"})); a.download=`moddat_${Date.now()}.json`; a.click(); showMessage("خروجی گرفته شد"); };
+    
+    loadFromLocal();
+    if(usersDatabase.length === 0) loadFromSheet();
+</script>
+</body>
+</html>
